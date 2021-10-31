@@ -32,7 +32,7 @@
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Product Name="Web eID software" UpgradeCode="4f0e0fef-0dbc-481b-9d81-08921740f781"
-      Id="*" Language="1033" Version="$(var.MSI_VERSION)" Codepage="1251" Manufacturer="RIA">
+      Id="*" Language="1033" Version="$(var.MSI_VERSION)" Codepage="1251" Manufacturer="RIA, Karl80038">
     <Package Platform="$(var.Platform)" Keywords="Installer" InstallerVersion="405" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated"/>
     <MediaTemplate EmbedCab="yes" CompressionLevel="high"/>
     <Icon Id="web_eid.exe" SourceFile="$(var.app_path)"/>
@@ -45,9 +45,6 @@
     <Property Id="FIREFOXINSTALL" Value="1"/>
     <MajorUpgrade AllowSameVersionUpgrades="yes" Schedule="afterInstallInitialize" DowngradeErrorMessage=
       "A newer version of [ProductName] is already installed. If you are trying to downgrade, please uninstall the newer version first."/>
-    <Condition Message="[ProductName] requires Windows 8.1 or higher.">
-      <![CDATA[Installed OR (VersionNT >= 603)]]>
-    </Condition>
     <UIRef Id="WixUI_Minimal2" />
 
     <!-- See https://github.com/web-eid/wix-custom-action-firefox-extension-install/blob/main/README.md and
