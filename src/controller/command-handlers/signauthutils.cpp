@@ -41,7 +41,7 @@ void requireArgumentsAndOptionalLang(QStringList argNames, const QVariantMap& ar
     // QMap::keys() also returns a list containing all the keys in the map in ascending order.
     if (argCopy.keys() != argNames) {
         THROW(CommandHandlerInputDataError,
-              "Argument must be '{" + argDescriptions
+              "Arguments must be '{" + argDescriptions
                   + ", \"lang\": \"<OPTIONAL user interface language>\"}'");
     }
 }
@@ -135,10 +135,11 @@ QVariantMap signatureAlgoToVariantMap(const SignatureAlgorithm signatureAlgo)
     }
 
     if (signatureAlgo & SignatureAlgorithm::ES)
-        return {{"crypto-algo", "ECC"}, {"hash-algo", hashAlgo}, {"padding-algo", "NONE"}};
+        return {{"cryptoAlgorithm", "ECC"}, {"hashFunction", hashAlgo}, {"paddingScheme", "NONE"}};
     if (signatureAlgo & SignatureAlgorithm::RS)
-        return {{"crypto-algo", "RSA"}, {"hash-algo", hashAlgo}, {"padding-algo", "PKCS1.5"}};
+        return {
+            {"cryptoAlgorithm", "RSA"}, {"hashFunction", hashAlgo}, {"paddingScheme", "PKCS1.5"}};
     if (signatureAlgo & SignatureAlgorithm::PS)
-        return {{"crypto-algo", "RSA"}, {"hash-algo", hashAlgo}, {"padding-algo", "PSS"}};
+        return {{"cryptoAlgorithm", "RSA"}, {"hashFunction", hashAlgo}, {"paddingScheme", "PSS"}};
     THROW(ProgrammingError, "Unknown signature algorithm " + std::string(signatureAlgo));
 }

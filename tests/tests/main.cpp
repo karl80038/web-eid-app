@@ -68,7 +68,7 @@ private slots:
     void getCertificate_expiredCertificateHasExpectedCertificateSubject();
     void getCertificate_outputsSupportedAlgos();
 
-    void authenticate_validArgumentsResultInValidJwt();
+    void authenticate_validArgumentsResultInValidToken();
 
     void fromPunycode_decodesEeDomain();
 
@@ -168,16 +168,16 @@ void WebEidTests::getCertificate_outputsSupportedAlgos()
     QSignalSpy certificateReadySpy(g_cached_GetCertificate.get(),
                                    &GetCertificate::singleCertificateReady);
     QVariantMap ES224_ALGO {
-        {"crypto-algo", "ECC"}, {"hash-algo", "SHA-224"}, {"padding-algo", "NONE"}};
+        {"cryptoAlgorithm", "ECC"}, {"hashFunction", "SHA-224"}, {"paddingScheme", "NONE"}};
 
     // act
     runEventLoopVerifySignalsEmitted(certificateReadySpy);
 
     // assert
-    QCOMPARE(controller->result()["supported-signature-algos"].toList()[0].toMap(), ES224_ALGO);
+    QCOMPARE(controller->result()["supportedSignatureAlgorithms"].toList()[0].toMap(), ES224_ALGO);
 }
 
-void WebEidTests::authenticate_validArgumentsResultInValidJwt()
+void WebEidTests::authenticate_validArgumentsResultInValidToken()
 {
     // arrange
     initCard(false);
@@ -193,13 +193,8 @@ void WebEidTests::authenticate_validArgumentsResultInValidJwt()
     const auto certInfo = getCertAndPinInfoFromSignalSpy(authenticateSpy);
     QCOMPARE(certInfo.subject, QStringLiteral("M\u00C4NNIK,MARI-LIIS,61709210125"));
 
-    QCOMPARE(
-        QString(controller->result()["auth-token"].toString().toUtf8()).left(316),
-        QStringLiteral(
-            "eyJhbGciOiJFUzM4NCIsInR5cCI6IkpXVCIsIng1YyI6WyJNSUlHUnpDQ0JDK2dBd0lCQWdJUVJBN1gwUHlSRj"
-            "I5WjFNMTJEZ3QreHpBTkJna3Foa2lHOXcwQkFRc0ZBREJyTVFzd0NRWURWUVFHRXdKRlJURWlNQ0FHQTFVRUNn"
-            "d1pRVk1nVTJWeWRHbG1hWFJ6WldWeWFXMXBjMnRsYzJ0MWN6RVhNQlVHQTFVRVlRd09UbFJTUlVVdE1UQTNORG"
-            "N3TVRNeEh6QWRCZ05WQkFNTUZsUkZVMVFnYjJZZ1JWTlVSVWxFTFZOTElE"));
+    QCOMPARE(controller->result()["unverifiedCertificate"].toString().left(25),
+             QStringLiteral("MIIGRzCCBC+gAwIBAgIQRA7X0"));
 }
 
 void WebEidTests::fromPunycode_decodesEeDomain()
