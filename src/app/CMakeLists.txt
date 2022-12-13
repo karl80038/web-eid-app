@@ -52,7 +52,7 @@ if(WIN32)
         COMMAND ${LIGHT_CMD} -o "${MSI_FILE}.msi"
         #Build MSI with QT
         COMMAND ${CANDLE_CMD} -dqt_path=${qtCore_install_prefix} -dqt_version_major=${QT_VERSION_MAJOR}
-        COMMAND ${LIGHT_CMD} -o "${BASE_FILE}.qt.msi"
+        COMMAND ${LIGHT_CMD} -o "${MSI_FILE}.qt.msi"
         WORKING_DIRECTORY $<TARGET_FILE_DIR:web-eid>
     )
     add_custom_target(bundle
