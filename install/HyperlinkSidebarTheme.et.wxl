@@ -73,5 +73,4 @@ Juhend on leitav &lt;a href="https://www.id.ee/artikkel/veebibrauserite-seadista
   <String Id="firefoxplugin">Firefox allkirjastamise ja autentimise tugi</String>
   <String Id="edgeplugin">Edge Chromium allkirjastamise tugi</String>
   <String Id="edgepluginpolicy">Edge Chromium allkirjastamise tugi aktiveeritakse automaatselt</String>
-  <String Id="SupportedWindows">Kasutate mittetoetatud operatsioonisüsteemi. ID-tarkvara paigaldamiseks on vaja Windows 8.1 või uuemat operatsioonisüsteemi.</String>
 </WixLocalization>
