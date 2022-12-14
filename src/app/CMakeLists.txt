@@ -58,7 +58,7 @@ if(WIN32)
     add_custom_target(bundle
         COMMAND "$ENV{WIX}bin\\candle.exe" -nologo -ext WixBalExtension -ext WixUtilExtension -dwebeid="${BASE_FILE}"
             -dMSI_VERSION=${PROJECT_VERSION} -dpath="${CMAKE_SOURCE_DIR}/install" "${CMAKE_SOURCE_DIR}/install/plugins.wxs"
-        COMMAND "$ENV{WIX}bin\\light.exe" "plugins.wixobj" -nologo -ext WixBalExtension -out "${BASE_FILE}.exe"
+        COMMAND "$ENV{WIX}bin\\light.exe" "plugins.wixobj" -nologo -ext WixBalExtension -out "${BASE_FILE}_win7.exe"
         WORKING_DIRECTORY $<TARGET_FILE_DIR:web-eid>
     )
     if(SIGNCERT)
